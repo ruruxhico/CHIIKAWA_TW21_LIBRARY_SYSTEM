@@ -10,15 +10,16 @@ include "db.php";
 $username = $_SESSION['user'];
 $role = $_SESSION['role'];
 
-// Get current user's borrowed books
+// Fetch user's borrowed books
 $query = "
-  SELECT b.title, br.date_borrowed, br.date_returned
+  SELECT b.title, br.borrow_date, br.returned
   FROM borrows br
   JOIN books b ON br.book_id = b.book_id
-  WHERE br.borrower_name = '$username'
-  ORDER BY br.date_borrowed DESC
+  WHERE br.student = '$username'
+  ORDER BY br.borrow_date DESC
 ";
 
+$result = $conn->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -115,8 +116,8 @@ $query = "
 
   <div class="container dashboard-box">
     <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
-    <p>You are logged in as <strong><?php echo htmlspecialchars($role); ?></strong>.</p>
 
+    
     <div class="button-grid">
       <?php if ($role === 'admin'): ?>
         <a href="add_book.php" class="dash-button">Add Book</a>
@@ -131,18 +132,17 @@ $query = "
     <?php if ($result->num_rows > 0): ?>
       <?php while ($row = $result->fetch_assoc()): ?>
         <?php
-          $borrowed_date = new DateTime($row['date_borrowed']);
+          $borrowed_date = new DateTime($row['borrow_date']);
           $today = new DateTime();
           $due_date = clone $borrowed_date;
           $due_date->modify('+7 days');
 
-          $is_returned = !empty($row['date_returned']);
-          $returned_date = $is_returned ? new DateTime($row['date_returned']) : null;
+          $is_returned = $row['returned'] == 1;
 
-          // Determine fine if overdue
-          $effective_return_date = $is_returned ? $returned_date : $today;
-          $overdue_days = $due_date < $effective_return_date ? $due_date->diff($effective_return_date)->days : 0;
-          $fine = $overdue_days * 10;
+          // Fine logic: ₱10/day after due date if not returned
+          $effective_date = $is_returned ? $due_date : $today;
+          $overdue_days = $due_date < $effective_date ? $due_date->diff($effective_date)->days : 0;
+          $fine = (!$is_returned && $overdue_days > 0) ? $overdue_days * 10 : 0;
         ?>
 
         <div class="borrowed-card">
@@ -152,7 +152,7 @@ $query = "
             Due: <?php echo $due_date->format('F j, Y'); ?><br>
             Status: 
             <?php if ($is_returned): ?>
-              Returned on <?php echo $returned_date->format('F j, Y'); ?>
+              Returned
             <?php else: ?>
               <strong style="color: red;">Not Returned</strong>
             <?php endif; ?><br>
