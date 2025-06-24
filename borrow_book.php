@@ -9,16 +9,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Check book availability
     $check = $conn->query("SELECT * FROM books WHERE book_id = '$book_id' AND status = 'Available'");
     if ($check->num_rows === 1) {
-        // Borrow the book
+        // Update book status
         $conn->query("UPDATE books SET status = 'Borrowed' WHERE book_id = '$book_id'");
-        $conn->query("INSERT INTO borrowed_books (book_id, borrower_name, date_borrowed) 
-                      VALUES ('$book_id', '$borrower', NOW())");
+
+        // Insert into borrows (not borrowed_books)
+        $conn->query("INSERT INTO borrows (book_id, student, borrow_date, returned) 
+                      VALUES ('$book_id', '$borrower', NOW(), 0)");
+
         $message = "Book successfully borrowed!";
     } else {
         $message = "Book not available.";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
