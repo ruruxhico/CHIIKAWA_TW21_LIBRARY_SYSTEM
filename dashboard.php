@@ -1,21 +1,21 @@
 <?php
 session_start();
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     exit();
 }
 
 include "db.php";
 
-$username = $_SESSION['user'];
-$role = $_SESSION['role'];
+$username = $_SESSION['username'];
+$user_type = $_SESSION['user_type'];
 
 // Fetch user's borrowed books
 $query = "
-  SELECT b.title, br.borrow_date, br.returned
-  FROM borrows br
+  SELECT b.title, br.borrow_date, br.return_date
+  FROM borrowings br
   JOIN books b ON br.book_id = b.book_id
-  WHERE br.student = '$username'
+  WHERE br.user_id = '$username'
   ORDER BY br.borrow_date DESC
 ";
 
@@ -119,7 +119,7 @@ $result = $conn->query($query);
 
     
     <div class="button-grid">
-      <?php if ($role === 'admin'): ?>
+      <?php if ($user_type === 'admin'): ?>
         <a href="add_book.php" class="dash-button">Add Book</a>
       <?php endif; ?>
       <a href="view_books.php" class="dash-button">View Books</a>
