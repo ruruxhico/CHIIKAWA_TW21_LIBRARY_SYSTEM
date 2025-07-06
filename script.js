@@ -47,3 +47,18 @@ function confirmSubmit(event, message = "Are you sure?") {
     event.preventDefault();
   }
 }
+
+function saveCredentials() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const remember = document.getElementById("remember").checked;
+
+  if (remember) {
+    document.cookie = `username=${username}; max-age=604800`; // 7 days
+    document.cookie = `password=${password}; max-age=604800`;
+  } else {
+    document.cookie = "username=; max-age=0";
+    document.cookie = "password=; max-age=0";
+  }
+}
+

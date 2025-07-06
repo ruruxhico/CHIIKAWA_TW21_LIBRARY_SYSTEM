@@ -83,8 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div style="margin: 10px 0; display: flex; justify-content: flex-end;">
         <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">
+            <input type="checkbox" onclick="saveCredentials()" >
+            Remember Me
             <input type="checkbox" onclick="togglePassword('reg-password')">
             Show Password
+            
         </label>
       </div>
 
