@@ -205,7 +205,7 @@ $conn->close(); // Close connection AFTER all database operations are done
 </head>
 <body>
     <div class="container">
-      <p style="margin-top: 15px;"><a href="dashboard.php">Back to Dashboard</a></p>
+        <p style="margin-top: 15px;"><a href="dashboard.php">Back to Dashboard</a></p>
         <h2>View Books</h2>
 <form method="GET" action="view_books.php" class="mb-2">
   <input type="text" name="search" placeholder="Search book title..." value="<?= htmlspecialchars($search) ?>" />
@@ -247,7 +247,7 @@ $conn->close(); // Close connection AFTER all database operations are done
                                     <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($book['book_id']); ?>">
                                     <button type="submit" name="action" value="borrow" class="btn-primary">Borrow</button>
                                 </form>
-                            <?php elseif ($book['status'] === 'unavailable'): ?>
+                            <?php else: ?>
                                 <button class="btn-warning" disabled>Unavailable</button>
                             <?php endif;
                         endif;
