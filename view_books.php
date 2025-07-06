@@ -220,7 +220,7 @@ $conn->close(); // Close connection AFTER all database operations are done
                         <a href="see_more.php?id=<?php echo htmlspecialchars($book['book_id']); ?>" class="btn-primary">See More</a>
 
                         <?php
-                        if ($user_type === 'student' ||$user_type === 'admin'):
+                        if ($user_type === 'student' || $user_type === 'admin'):
                             if ($book['status'] === 'available' && $book['available_copies'] > 0): ?>
                                 <form action="" method="POST" style="display:inline-block; width:100%;">
                                     <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($book['book_id']); ?>">

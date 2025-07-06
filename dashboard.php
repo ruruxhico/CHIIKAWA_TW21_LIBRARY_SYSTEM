@@ -114,6 +114,10 @@ $result = $stmt->get_result();
             text-decoration: none;
             transition: background 0.3s ease;
             min-width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .dash-button:hover {
@@ -162,6 +166,10 @@ $result = $stmt->get_result();
         /* New style for admin-specific button, if desired */
         .admin-button {
             background-color: #f7931e; /* Orange color for admin actions */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
         .admin-button:hover {
             background-color: #d17814;
@@ -230,7 +238,7 @@ $result = $stmt->get_result();
         <div class="button-grid">
             <?php if ($user_type === 'admin' || $user_type === 'librarian'): ?>
                 <a href="add_book.php" class="dash-button admin-button">Add Book</a>
-                <a href="archive_books.php" class="dash-button admin-button">Archived Books</a>
+                <a href="archive_book.php" class="dash-button admin-button">Archived Books</a>
             <?php endif; ?>
             <a href="view_books.php" class="dash-button">View Books</a>
         </div>
