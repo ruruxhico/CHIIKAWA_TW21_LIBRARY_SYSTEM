@@ -219,18 +219,21 @@ $conn->close(); // Close connection AFTER all database operations are done
                     <div class="book-actions">
                         <a href="see_more.php?id=<?php echo htmlspecialchars($book['book_id']); ?>" class="btn-primary">See More</a>
 
-                        <?php
-                        if ($user_type === 'student' || $user_type === 'admin'):
-                            if ($book['status'] === 'available' && $book['available_copies'] > 0): ?>
-                                <form action="" method="POST" style="display:inline-block; width:100%;">
-                                    <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($book['book_id']); ?>">
-                                    <button type="submit" name="action" value="borrow" class="btn-primary">Borrow</button>
-                                </form>
-                            <?php elseif ($book['status'] === 'unavailable'): ?>
-                                <button class="btn-warning" disabled>Unavailable</button>
-                            <?php endif;
-                        endif;
-                        ?>
+                    <?php
+                    if ($user_type === 'student' || $user_type === 'admin'):
+                        if ($book['status'] === 'available' && $book['available_copies'] > 0): ?>
+                            <form action="" method="POST" style="display:inline-block; width:100%;">
+                                <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($book['book_id']); ?>">
+                                <button type="submit" name="action" value="borrow" class="btn-primary">Borrow</button>
+                            </form>
+                        <?php elseif ($book['available_copies'] == 0): ?>
+                            <button class="btn-warning" disabled>Unavailable</button>
+                        <?php elseif ($book['status'] === 'unavailable'): ?>
+                            <button class="btn-warning" disabled>Unavailable</button>
+                        <?php endif;
+                    endif;
+                    ?>
+                            
 
                         <?php
                         if ($user_type === 'admin'):
