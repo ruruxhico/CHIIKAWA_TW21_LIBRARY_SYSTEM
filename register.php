@@ -6,12 +6,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    $check = $conn->query("SELECT * FROM users WHERE username='$username'");
-    if ($check->num_rows > 0) {
-        $message = "Username already exists.";
+    // Validate inputs (basic example)
+    if (empty($username) || empty($password)) {
+        $message = "Please fill in all fields.";
     } else {
-        $conn->query("INSERT INTO users (username, password, role) VALUES ('$username', '$password', 'user')");
-        $message = "Registration successful. <a href='index.php'>Login here</a>";
+        // Check if username already exists using a prepared statement for security
+        $check_sql = "SELECT user_id FROM users WHERE username = ?";
+        if ($stmt_check = $conn->prepare($check_sql)) {
+            $stmt_check->bind_param("s", $username);
+            $stmt_check->execute();
+            $stmt_check->store_result();
+
+            if ($stmt_check->num_rows > 0) {
+                $message = "Username already exists.";
+            } else {
+                // Hash the password before storing it
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+                // Default user type for registration is 'student'
+                $user_type = 'student';
+
+                // Insert the new user with hashed password and default user_type
+                // Use a prepared statement to prevent SQL injection
+                $insert_sql = "INSERT INTO users (username, password, user_type) VALUES (?, ?, ?)";
+                if ($stmt_insert = $conn->prepare($insert_sql)) {
+                    $stmt_insert->bind_param("sss", $username, $hashed_password, $user_type);
+
+                    if ($stmt_insert->execute()) {
+                        $message = "Registration successful. <a href='index.php'>Login here</a>";
+                    } else {
+                        $message = "Error registering user: " . $stmt_insert->error;
+                    }
+                    $stmt_insert->close();
+                } else {
+                    $message = "Database error preparing insert statement: " . $conn->error;
+                }
+            }
+            $stmt_check->close();
+        } else {
+            $message = "Database error preparing check statement: " . $conn->error;
+        }
     }
 }
 ?>
@@ -21,7 +55,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <title>Register</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <script>
+    // Moved the togglePassword function to be directly in the HTML for simplicity,
+    // or ensure your script.js is correctly linked and contains this function.
+    function togglePassword(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+  </script>
 </head>
 <body>
   <div class="container">
@@ -36,13 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label>Password:</label>
       <input type="password" name="password" id="reg-password" required>
 
-    <div style="margin: 10px 0; display: flex; justify-content: flex-end;">
-    <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">
-        <input type="checkbox" onclick="togglePassword('reg-password')">
-         Show Password
+      <div style="margin: 10px 0; display: flex; justify-content: flex-end;">
+        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">
+            <input type="checkbox" onclick="togglePassword('reg-password')">
+            Show Password
         </label>
-    </div>
-
+      </div>
 
       <button type="submit">Register</button>
     </form>
