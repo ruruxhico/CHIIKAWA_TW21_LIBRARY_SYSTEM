@@ -51,10 +51,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // --- Fetch Books to Display ---
 // This query now happens AFTER any potential POST actions have been processed.
 // The $conn object is still open at this point.
-$sql = "SELECT * FROM books";
+
+// Search books
+$search = '';
+$filter = "";
+
 if ($user_type === 'student') {
-    $sql .= " WHERE status = 'available'";
+    $filter .= " WHERE status = 'available'";
 }
+
+if (isset($_GET['search']) && strlen(trim($_GET['search'])) > 0) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $filter = " WHERE title LIKE '%$search%'";
+    
+    // Students only see available books even during search
+    if ($user_type === 'student') {
+        $filter .= " AND status = 'available'";
+    }
+}
+
+$sql = "SELECT * FROM books" . $filter . " ORDER BY title ASC";
+
 // For admin/librarian, they see all books including archived/unavailable unless further filtered
 $result = $conn->query($sql);
 $books = [];
@@ -190,6 +207,10 @@ $conn->close(); // Close connection AFTER all database operations are done
     <div class="container">
       <p style="margin-top: 15px;"><a href="dashboard.php">Back to Dashboard</a></p>
         <h2>View Books</h2>
+<form method="GET" action="view_books.php" class="mb-2">
+  <input type="text" name="search" placeholder="Search book title..." value="<?= htmlspecialchars($search) ?>" />
+  <button type="submit">Search</button>
+</form>
 
         <?php if ($message): ?>
             <p class="message <?php echo (strpos($message, 'Error') !== false || strpos($message, 'not available') !== false) ? 'error' : 'success'; ?>">
