@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2025 at 05:53 AM
+-- Generation Time: Jul 06, 2025 at 11:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,16 +28,25 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `books` (
-  `book_id` varchar(20) NOT NULL,
+  `book_id` varchar(40) NOT NULL,
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
+  `month_published` varchar(20) DEFAULT NULL,
   `year_published` int(11) NOT NULL,
   `category` varchar(50) NOT NULL,
+  `cover_image` varchar(255) DEFAULT NULL,
   `date_added` date NOT NULL,
   `count_in_library` int(11) NOT NULL DEFAULT 0,
   `available_copies` int(11) NOT NULL DEFAULT 0,
   `status` enum('available','borrowed','archived','') NOT NULL DEFAULT 'available'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`book_id`, `title`, `author`, `month_published`, `year_published`, `category`, `cover_image`, `date_added`, `count_in_library`, `available_copies`, `status`) VALUES
+('ADDEC062009-CHILD00019', 'Adventure Time', 'yayaya', 'December', 2009, 'Children', 'uploads/covers/7b808f681c27a4a29e4cd95a1ba31b60.jpg', '2025-07-06', 19, 16, 'available');
 
 -- --------------------------------------------------------
 
@@ -47,7 +56,7 @@ CREATE TABLE `books` (
 
 CREATE TABLE `borrowings` (
   `borrow_id` int(11) NOT NULL,
-  `book_id` varchar(20) NOT NULL,
+  `book_id` varchar(40) NOT NULL,
   `user_id` int(11) NOT NULL,
   `borrow_date` date NOT NULL,
   `due_date` date NOT NULL,
@@ -55,6 +64,16 @@ CREATE TABLE `borrowings` (
   `fine_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
   `status` enum('borrowed','returned','overdue','') NOT NULL DEFAULT 'borrowed'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `borrowings`
+--
+
+INSERT INTO `borrowings` (`borrow_id`, `book_id`, `user_id`, `borrow_date`, `due_date`, `return_date`, `fine_amount`, `status`) VALUES
+(3, 'ADDEC062009-CHILD00019', 1, '2025-06-23', '2025-06-30', NULL, 0.00, 'borrowed'),
+(4, 'ADDEC062009-CHILD00019', 3, '2025-07-06', '2025-07-20', '2025-07-06', 0.00, 'returned'),
+(5, 'ADDEC062009-CHILD00019', 3, '2025-06-30', '2025-07-05', NULL, 0.00, 'borrowed'),
+(6, 'ADDEC062009-CHILD00019', 3, '2025-07-06', '2025-07-13', NULL, 0.00, 'borrowed');
 
 -- --------------------------------------------------------
 
@@ -92,8 +111,8 @@ ALTER TABLE `books`
 --
 ALTER TABLE `borrowings`
   ADD PRIMARY KEY (`borrow_id`),
-  ADD KEY `book_id` (`book_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `borrowings_ibfk_1` (`book_id`);
 
 --
 -- Indexes for table `users`
@@ -110,7 +129,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `borrowings`
 --
 ALTER TABLE `borrowings`
-  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -126,7 +145,7 @@ ALTER TABLE `users`
 -- Constraints for table `borrowings`
 --
 ALTER TABLE `borrowings`
-  ADD CONSTRAINT `borrowings_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `borrowings_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
   ADD CONSTRAINT `borrowings_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON UPDATE CASCADE;
 COMMIT;
 
