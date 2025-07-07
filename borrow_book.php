@@ -29,46 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
   <title>Borrow Book</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    form {
-      max-width: 400px;
-      margin: auto;
-      background: #fff;
-      padding: 24px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    form input, form select {
-      width: 100%;
-      padding: 10px;
-      margin: 12px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    form button {
-      width: 100%;
-      background-color: #1a73e8;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    form button:hover {
-      background-color: #155db2;
-    }
-
-    .message {
-      text-align: center;
-      color: #1a4c96;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-  </style>
 </head>
 <body>
   <div class="container">

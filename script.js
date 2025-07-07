@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Basic form validation
+  //basic form validation
   const forms = document.querySelectorAll("form");
 
   forms.forEach(form => {
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Toggle password visibility
+//toggle password visibility
 function togglePassword(id) {
   const field = document.getElementById(id);
   field.type = (field.type === "password") ? "text" : "password";
@@ -62,3 +62,22 @@ function saveCredentials() {
   }
 }
 
+//from register.php
+function togglePassword(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+//from dashboard.php
+function confirmReturn(bookTitle) {
+            return confirm("Are you sure you want to return '" + bookTitle + "'?");
+        }
+
+//from archive_book.php
+function confirmUnarchive(bookTitle) {
+            return confirm("Are you sure you want to unarchive '" + bookTitle + "'?");
+        }

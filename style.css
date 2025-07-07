@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 /* Body Styling */
@@ -120,4 +121,546 @@ footer {
   margin-top: 2rem;
   color: #999;
   font-size: 0.9rem;
+}
+
+.message {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/*Return Books*/
+.return-books-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.return-books-container input[type="text"],
+.return-books-container input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.return-books-container input[type="submit"] {
+  background-color: #1a73e8;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.return-books-container input[type="submit"]:hover {
+  background-color: #155db2;
+}
+
+/*View Books*/
+.view-books-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+
+.book-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  animation: fadeIn 0.3s ease-in-out;
+  transition: transform 0.2s ease;
+  gap: 20px;
+  text-align: start;
+}
+
+.book-card:hover {
+  transform: scale(1.01);
+}
+
+.book-thumb {
+  width: 60px;
+  height: 80px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.book-details {
+  flex: 1;
+  padding-right: 15px;
+}
+
+.title-book {
+  font-weight: bold;
+  color: #1a4c96;
+  font-size: 18px;
+  margin-bottom: 5px;
+  text-align: start;
+}
+
+.book-meta {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.book-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 120px;
+  align-items: flex-end;
+}
+
+.book-actions button,
+.book-actions a {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/*Button Styles*/
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+button:disabled,
+.button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+} 
+
+/*Added new class*/
+.register-link {
+  margin-top: 15px;
+  
+}
+
+.login-link {
+  margin-top: 15px;
+}
+
+.back-link {
+    margin-top: 15px;
+    text-align: start;
+}
+
+.inline-form {
+    display:inline-block;
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+/*Dashboard*/
+        .container-dashboard-box {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #1a4c96;
+            margin-bottom: 20px;
+        
+        }
+        .logout-top {
+            display: flex;
+            justify-content: flex-end;
+            padding: 16px;
+        }
+
+        .logout-top a {
+            background: #e53935;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: background 0.2s ease;
+        }
+
+        .logout-top a:hover {
+            background: #c62828;
+        }
+
+         
+
+        .button-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .dash-button {
+            background: #1a73e8;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            min-width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .dash-button:hover {
+            background: #155db2;
+        }
+
+.borrowed-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9f9f9;
+            border-left: 5px solid #1a73e8;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            text-align: left;
+            border-radius: 6px;
+        }
+
+        .borrowed-card.returned {
+            opacity: 0.7; 
+            border-left: 5px solid #6c757d; 
+        }
+
+
+        .borrowed-details { 
+            flex-grow: 1; 
+        }
+
+        .borrowed-title {
+            font-weight: bold;
+            color: #1a4c96;
+            font-size: 18px;
+        }
+
+        .meta {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #333;
+        }
+
+        .fine {
+            color: red;
+            font-weight: bold;
+        }
+
+        .admin-button {
+            background-color: #f7931e; /* Orange color for admin actions */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .admin-button:hover {
+            background-color: #d17814;
+        }
+
+        .btn-return {
+            background-color: #28a745; /* Green for return */
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+            white-space: nowrap; /* Keep text on one line */
+        }
+        .btn-return:hover {
+            background-color: #218838;
+        }
+        .btn-returned { /* Style for when book is already returned */
+            background-color: #6c757d; /* Grey */
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: not-allowed;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+/*see more*/
+.container-see-more {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .book-image {
+            width: 150px;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .book-title {
+            font-size: 24px;
+            color: #1a4c96;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .book-details {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .actions button,
+        .actions a {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+        }
+        .btn-primary { background-color: #007bff; color: #fff;}
+        .btn-primary:hover { background-color: #0056b3; }
+        .btn-success { background-color: #28a745; color: #fff; }
+        .btn-success:hover { background-color: #218838; }
+        .btn-danger { background-color: #dc3545; color: #fff; }
+        .btn-danger:hover { background-color: #c82333; }
+        .btn-warning { background-color: #ffc107; color: #212529; }
+        .btn-warning:hover { background-color: #e0a800; }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .message {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+/*Index*/
+.container-index {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #1a4c96;
+            margin-bottom: 20px;
+}
+
+.container-index h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #1a4c96;
+}
+
+.container-index form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.container-index label {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.container-index input[type="text"],
+.container-index input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/*Add book*/
+/* Container for the add book form */
+.container-add-book {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1a4c96;
+}
+
+/* Header */
+.container-add-book h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 26px;
+  color: #1a4c96;
+}
+
+/* Form structure */
+.container-add-book form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Label styling */
+.container-add-book label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Input and select fields */
+.container-add-book input[type="text"],
+.container-add-book input[type="number"],
+.container-add-book input[type="file"],
+.container-add-book select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Submit button */
+.container-add-book button[type="submit"] {
+  background-color: #1a73e8;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.container-add-book button[type="submit"]:hover {
+  background-color: #155db2;
 }
