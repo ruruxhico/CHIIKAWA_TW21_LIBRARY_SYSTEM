@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2025 at 05:47 PM
+-- Generation Time: Jul 08, 2025 at 02:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,8 +47,7 @@ CREATE TABLE `books` (
 
 INSERT INTO `books` (`book_id`, `title`, `author`, `month_published`, `year_published`, `category`, `cover_image`, `date_added`, `count_in_library`, `available_copies`, `status`) VALUES
 ('ACOMAY062015-FAN00005', 'A Court of Thorns and Roses', 'Sarah J. Maas', 'May', 2015, 'Fantasy', 'uploads/covers/a_court_of_thorns_and_roses.jpg', '2025-07-06', 5, 5, 'available'),
-('ADDEC062009-CHILD00019', 'Adventure Time', 'yayaya', 'December', 2009, 'Children', 'uploads/covers/adventure_time.jpg', '2025-07-06', 19, 16, 'available'),
-('AGAAUG061996-FAN00005', 'A Game of Thrones', 'George R.R. Martin', 'August', 1996, 'Fantasy', 'uploads/covers/a_game_of_thrones.jpg', '2025-07-06', 5, 5, 'available'),
+('AGAAUG061996-FAN00005', 'A Game of Thrones', 'George R.R. Martin', 'August', 1996, 'Fantasy', 'uploads/covers/a_game_of_thrones.jpg', '2025-07-06', 5, 4, 'available'),
 ('AMAAUG062012-FIC00007', 'A Man Called Ove', 'Fredrik Backman', 'August', 2012, 'Fiction', 'uploads/covers/a_man_called_ove.jpg', '2025-07-06', 7, 7, 'available'),
 ('ANNNOV061939-MYS00004', 'And Then There Were None', 'Agatha Christie', 'November', 1939, 'Mystery', 'uploads/covers/and_then_there_were_none.jpg', '2025-07-06', 4, 4, 'available'),
 ('ATOCT062018-SEL00006', 'Atomic Habits', 'James Clear', 'October', 2018, 'Self-Help', 'uploads/covers/atomic_habits.jpg', '2025-07-06', 6, 6, 'available'),
@@ -88,7 +87,7 @@ INSERT INTO `books` (`book_id`, `title`, `author`, `month_published`, `year_publ
 ('THDJAN062003-MYS00003', 'The Da Vinci Code', 'Dan Brown', 'January', 2003, 'Mystery', 'uploads/covers/the_da_vinci_code.jpg', '2025-07-06', 3, 3, 'available'),
 ('THFAPR062021-HOR00007', 'The Final Girl Support Group', 'Grady Hendrix', 'April', 2021, 'Horror', 'uploads/covers/the_final_girl_support_group.jpg', '2025-07-06', 7, 7, 'available'),
 ('THFJAN062012-YOU00005', 'The Fault in Our Stars', 'John Green', 'January', 2012, 'Young Adult', 'uploads/covers/the_fault_in_our_stars.jpg', '2025-07-06', 5, 5, 'available'),
-('THGAPR061925-CLA00009', 'The Great Gatsby', 'F. Scott Fitzgerald', 'April', 1925, 'Classics', 'uploads/covers/the_great_gatsby.jpg', '2025-07-06', 9, 9, 'available'),
+('THGAPR061925-CLA00009', 'The Great Gatsby', 'F. Scott Fitzgerald', 'April', 1925, 'Classics', 'uploads/covers/the_great_gatsby.jpg', '2025-07-06', 9, 7, 'available'),
 ('THGAUG062005-MYS00003', 'The Girl with the Dragon Tattoo', 'Stieg Larsson', 'August', 2005, 'Mystery', 'uploads/covers/the_girl_with_the_dragon_tattoo.jpg', '2025-07-06', 3, 3, 'available'),
 ('THHSEP061937-FAN00002', 'The Hobbit', 'J.R.R. Tolkien', 'September', 1937, 'Fantasy', 'uploads/covers/the_hobbit.jpg', '2025-07-06', 2, 2, 'available'),
 ('THHSEP062008-DYS00001', 'The Hunger Games', 'Suzanne Collins', 'September', 2008, 'Dystopian', 'uploads/covers/the_hunger_games.jpg', '2025-07-06', 1, 1, 'available'),
@@ -106,7 +105,7 @@ INSERT INTO `books` (`book_id`, `title`, `author`, `month_published`, `year_publ
 ('THTSEP062020-MYS00007', 'The Thursday Murder Club', 'Richard Osman', 'September', 2020, 'Mystery', 'uploads/covers/the_thursday_murder_club.jpg', '2025-07-06', 7, 7, 'available'),
 ('TOKJUL061960-CLA00003', 'To Kill a Mockingbird', 'Harper Lee', 'July', 1960, 'Classics', 'uploads/covers/to_kill_a_mockingbird.jpg', '2025-07-06', 3, 3, 'available'),
 ('WHBJAN062016-MEM00002', 'When Breath Becomes Air', 'Paul Kalanithi', 'January', 2016, 'Memoir', 'uploads/covers/when_breath_becomes_air.jpg', '2025-07-06', 2, 2, 'available'),
-('WUHNOV061847-CLA00001', 'Wuthering Heights', 'Emily Brontë', 'November', 1847, 'Classics', 'uploads/covers/wuthering_heights.jpg', '2025-07-06', 1, 0, '');
+('WUHNOV061847-CLA00001', 'Wuthering Heights', 'Emily Brontë', 'November', 1847, 'Classics', 'uploads/covers/wuthering_heights.jpg', '2025-07-06', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -130,11 +129,9 @@ CREATE TABLE `borrowings` (
 --
 
 INSERT INTO `borrowings` (`borrow_id`, `book_id`, `user_id`, `borrow_date`, `due_date`, `return_date`, `fine_amount`, `status`) VALUES
-(3, 'ADDEC062009-CHILD00019', 1, '2025-06-23', '2025-06-30', NULL, 0.00, 'borrowed'),
-(4, 'ADDEC062009-CHILD00019', 3, '2025-07-06', '2025-07-20', '2025-07-06', 0.00, 'returned'),
-(5, 'ADDEC062009-CHILD00019', 3, '2025-06-30', '2025-07-05', NULL, 0.00, 'borrowed'),
-(6, 'ADDEC062009-CHILD00019', 3, '2025-07-06', '2025-07-13', NULL, 0.00, 'borrowed'),
-(7, 'WUHNOV061847-CLA00001', 1, '2025-07-06', '2025-07-13', NULL, 0.00, 'borrowed');
+(1, 'AGAAUG061996-FAN00005', 2, '2025-07-01', '2025-07-08', NULL, 0.00, 'borrowed'),
+(2, 'THGAPR061925-CLA00009', 2, '2025-07-02', '2025-07-16', NULL, 0.00, 'borrowed'),
+(3, 'THGAPR061925-CLA00009', 1, '2025-07-08', '2025-07-15', NULL, 0.00, 'borrowed');
 
 -- --------------------------------------------------------
 
@@ -155,7 +152,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `user_type`) VALUES
 (1, 'librarian', '$2y$10$XjfnbIGv.mpnWW9M0J3Fp.6OeySYjRhTq4qD5L.SpqzVXMRq9W2O.', 'admin'),
-(3, 'studentB', '$2y$10$VuGaMtuNdvkgthPON96WB.A/ZJx70mF8heVPQV8Co91gmxgscJiTK', 'student');
+(2, 'studentB', '$2y$10$VuGaMtuNdvkgthPON96WB.A/ZJx70mF8heVPQV8Co91gmxgscJiTK', 'student');
 
 --
 -- Indexes for dumped tables
@@ -190,7 +187,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `borrowings`
 --
 ALTER TABLE `borrowings`
-  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

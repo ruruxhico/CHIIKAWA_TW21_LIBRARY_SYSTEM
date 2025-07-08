@@ -78,6 +78,8 @@ $result = $stmt->get_result();
                 $borrowed_date = new DateTime($row['borrow_date']);
                 $due_date = new DateTime($row['due_date']);
                 $today = new DateTime();
+                $today = new DateTime($today->format('Y-m-d')); // Remove time part
+
 
                 $is_returned = ($row['return_date'] !== null);
 
@@ -86,24 +88,30 @@ $result = $stmt->get_result();
                 $card_class = "";
 
                 if ($is_returned) {
-                    $status_text = "Returned on " . (new DateTime($row['return_date']))->format('F j, Y');
-                    $card_class = "returned";
-                    if ($row['fine_amount'] > 0) {
-                        $fine_display = "Fine Paid: <span class='fine'>₱" . number_format($row['fine_amount'], 2) . "</span>";
+                        $status_text = "Returned on " . (new DateTime($row['return_date']))->format('F j, Y');
+                        $card_class = "returned";
+                        if ($row['fine_amount'] > 0) {
+                            $fine_display = "Fine Paid: <span class='fine'>₱" . number_format($row['fine_amount'], 2) . "</span>";
+                        }
+                    } 
+                        else {
+                        if ($today == $due_date) {
+                            $status_text = "Due Today";
+                        } elseif ($today > $due_date) {
+                            $overdue_days = $today->diff($due_date)->days;
+                            $status_text = "Overdue by " . $overdue_days . " day" . ($overdue_days > 1 ? "s" : "");
+                            $potential_fine = $overdue_days * 10;
+                            $fine_display = "Overdue! Potential Fine: <span class='fine'>₱" . number_format($potential_fine, 2) . "</span>";
+                        } else {
+                            $remaining_days = $today->diff($due_date)->days;
+                            if ($remaining_days === 1) {
+                                $status_text = "Due Tomorrow";
+                            } else {
+                                $status_text = "Days Left: " . $remaining_days;
+                            }
+                        }
                     }
-                } else {
-                    if ($today > $due_date) {
-                        $interval = $today->diff($due_date);
-                        $overdue_days = $interval->days;
-                        $potential_fine = $overdue_days * 10;
-                        $fine_display = "Overdue! Potential Fine: <span class='fine'>₱" . number_format($potential_fine, 2) . "</span>";
-                        $status_text = "Overdue by " . $overdue_days . " days";
-                    } else {
-                        $interval = $today->diff($due_date);
-                        $remaining_days = $interval->days;
-                        $status_text = ($remaining_days === 0) ? "Due Today" : "Days Left: " . $remaining_days;
-                    }
-                }
+
                 ?>
 
                 <div class="borrowed-card <?php echo $card_class; ?>">
