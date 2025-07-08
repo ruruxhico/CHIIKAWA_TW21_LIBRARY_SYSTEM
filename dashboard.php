@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Manila');
 session_start();
 include "db.php";
 include "functions.php";
@@ -78,7 +79,7 @@ $result = $stmt->get_result();
                 $borrowed_date = new DateTime($row['borrow_date']);
                 $due_date = new DateTime($row['due_date']);
                 $today = new DateTime();
-                $today = new DateTime($today->format('Y-m-d')); // Remove time part
+                $today->setTime(0, 0, 0); // Remove time part
 
 
                 $is_returned = ($row['return_date'] !== null);
