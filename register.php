@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
     <form method="POST">
       <label>Username:</label>
-      <input name="username" required>
+      <input type="text" name="username" required>
 
       <label>Password:</label>
       <input type="password" name="password" id="reg-password" required>

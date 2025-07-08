@@ -171,11 +171,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </p>
         <?php endif; ?>
         <form method="POST" enctype="multipart/form-data">
-            <label for="title">Title:</label>
-            <input name="title" id="title" required value="<?php echo htmlspecialchars($title); ?>"><br>
+            <label form="title">Title:</label>
+            <input type="text" name="title" id="title" required value="<?php echo htmlspecialchars($title); ?>"><br>
 
-            <label for="author">Author:</label>
-            <input name="author" id="author" value="<?php echo htmlspecialchars($author); ?>"><br>
+            <label form="author">Author:</label>
+            <input type="text" name="author" id="author" value="<?php echo htmlspecialchars($author); ?>"><br>
 
             <label for="pubMonth">Month Published:</label>
             <select name="pubMonth" id="pubMonth" required>
