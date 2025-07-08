@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Basic form validation
+  //basic form validation
   const forms = document.querySelectorAll("form");
 
   forms.forEach(form => {
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Toggle password visibility
+//toggle password visibility
 function togglePassword(id) {
   const field = document.getElementById(id);
   field.type = (field.type === "password") ? "text" : "password";
@@ -47,3 +47,37 @@ function confirmSubmit(event, message = "Are you sure?") {
     event.preventDefault();
   }
 }
+
+function saveCredentials() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const remember = document.getElementById("remember").checked;
+
+  if (remember) {
+    document.cookie = `username=${username}; max-age=604800`; // 7 days
+    document.cookie = `password=${password}; max-age=604800`;
+  } else {
+    document.cookie = "username=; max-age=0";
+    document.cookie = "password=; max-age=0";
+  }
+}
+
+//from register.php
+function togglePassword(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+//from dashboard.php
+function confirmReturn(bookTitle) {
+            return confirm("Are you sure you want to return '" + bookTitle + "'?");
+        }
+
+//from archive_book.php
+function confirmUnarchive(bookTitle) {
+            return confirm("Are you sure you want to unarchive '" + bookTitle + "'?");
+        }

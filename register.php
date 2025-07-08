@@ -55,18 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <title>Register</title>
   <link rel="stylesheet" href="style.css">
-  <script>
-    // Moved the togglePassword function to be directly in the HTML for simplicity,
-    // or ensure your script.js is correctly linked and contains this function.
-    function togglePassword(id) {
-        var x = document.getElementById(id);
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
-  </script>
 </head>
 <body>
   <div class="container">
@@ -76,21 +64,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
     <form method="POST">
       <label>Username:</label>
-      <input name="username" required>
+      <input type="text" name="username" required>
 
       <label>Password:</label>
       <input type="password" name="password" id="reg-password" required>
 
-      <div style="margin: 10px 0; display: flex; justify-content: flex-end;">
-        <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">
+      <div class="checkbox-options">
+        <label>
+            <input type="checkbox" onclick="saveCredentials()" >
+            Remember Me
             <input type="checkbox" onclick="togglePassword('reg-password')">
             Show Password
+            
         </label>
       </div>
 
       <button type="submit">Register</button>
     </form>
-    <p style="margin-top: 15px;">Already have an account? <a href="index.php">Login here</a></p>
+    <p class="login-link">Already have an account? <a href="index.php">Login here</a></p>
   </div>
 </body>
 </html>

@@ -6,7 +6,6 @@ function generateBookID($title, $monthAbbreviations, $dayAdded, $yearPub, $categ
 }
 
 function borrowBook($conn, $book_id, $user_id) {
-    // 1. Check current number of borrowed books for the user
     $borrowed_count_stmt = $conn->prepare("SELECT COUNT(*) AS borrowed_count FROM borrowings WHERE user_id = ? AND status = 'borrowed'");
     $borrowed_count_stmt->bind_param("i", $user_id);
     $borrowed_count_stmt->execute();
@@ -15,10 +14,10 @@ function borrowBook($conn, $book_id, $user_id) {
     $current_borrowed_books = $borrowed_data['borrowed_count'];
     $borrowed_count_stmt->close();
 
-    // Define the borrowing limit
-    $borrow_limit = 2; // Set the limit here
+    //Define the borrowing limit
+    $borrow_limit = 2; 
 
-    // Check if the user has reached the limit
+    //Check if the user has reached the limit
     if ($current_borrowed_books >= $borrow_limit) {
         return ["success" => false, "message" => "You have reached the maximum borrowing limit of " . $borrow_limit . " books."];
     }
@@ -91,11 +90,11 @@ function unarchiveBook($conn, $book_id) {
 }
 
 function returnBook($conn, $borrow_id, $book_id) {
-    $fine_per_day = 10; // Define your fine per day here (e.g., ₱10)
+    $fine_per_day = 10; //your fine per day here
 
     $conn->begin_transaction();
     try {
-        // 1. Get borrowing details (due_date)
+        //1. Get borrowing details (due_date)
         $stmt = $conn->prepare("SELECT due_date FROM borrowings WHERE borrow_id = ? AND status = 'borrowed'");
         $stmt->bind_param("i", $borrow_id);
         $stmt->execute();
@@ -109,7 +108,7 @@ function returnBook($conn, $borrow_id, $book_id) {
         }
 
         $due_date = new DateTime($borrowing_data['due_date']);
-        $return_date = new DateTime(); // Current date/time of return
+        $return_date = new DateTime(); // Current date or time of return
 
         $fine_amount = 0;
         if ($return_date > $due_date) {
@@ -118,7 +117,7 @@ function returnBook($conn, $borrow_id, $book_id) {
             $fine_amount = $overdue_days * $fine_per_day;
         }
 
-        // 2. Update the borrowings table
+        //2. Update the borrowings table
         $update_borrowing_stmt = $conn->prepare("UPDATE borrowings SET return_date = CURDATE(), fine_amount = ?, status = 'returned' WHERE borrow_id = ?");
         $update_borrowing_stmt->bind_param("di", $fine_amount, $borrow_id); // 'd' for double/float, 'i' for int
         $update_borrowing_stmt->execute();
@@ -128,13 +127,13 @@ function returnBook($conn, $borrow_id, $book_id) {
         }
         $update_borrowing_stmt->close();
 
-        // 3. Increment available_copies in the books table
+        //3. Increment copies in books table
         $update_book_copies_stmt = $conn->prepare("UPDATE books SET available_copies = available_copies + 1 WHERE book_id = ?");
         $update_book_copies_stmt->bind_param("s", $book_id); // 's' for string book_id
         $update_book_copies_stmt->execute();
         $update_book_copies_stmt->close();
 
-        // 4. Update book status if it was 'unavailable' and now copies are available
+        // 4. Update book status
         $check_copies_stmt = $conn->prepare("SELECT available_copies FROM books WHERE book_id = ?");
         $check_copies_stmt->bind_param("s", $book_id);
         $check_copies_stmt->execute();

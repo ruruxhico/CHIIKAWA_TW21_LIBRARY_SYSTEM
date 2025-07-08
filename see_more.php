@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     }
 }
 
-// Fetch latest book details
 $stmt = $conn->prepare("SELECT * FROM books WHERE book_id = ?");
 $stmt->bind_param("s", $book_id);
 $stmt->execute();
@@ -53,93 +52,15 @@ if (!$book) {
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Book Details</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-        .book-image {
-            width: 150px;
-            height: 200px;
-            object-fit: cover;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .book-title {
-            font-size: 24px;
-            color: #1a4c96;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .book-details {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #333;
-        }
-        .actions {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .actions button,
-        .actions a {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            font-size: 14px;
-        }
-        .btn-primary { background-color: #007bff; color: #fff;}
-        .btn-primary:hover { background-color: #0056b3; }
-        .btn-success { background-color: #28a745; color: #fff; }
-        .btn-success:hover { background-color: #218838; }
-        .btn-danger { background-color: #dc3545; color: #fff; }
-        .btn-danger:hover { background-color: #c82333; }
-        .btn-warning { background-color: #ffc107; color: #212529; }
-        .btn-warning:hover { background-color: #e0a800; }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        .message {
-            margin: 15px 0;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-    </style>
 </head>
 <body>
-<div class="container">
-    <p><a href="view_books.php">Back to Book List</a></p>
+<div class="container-see-more">
+    <p><a href="view_books.php">← Back to Book List</a></p>
 
     <?php if ($message): ?>
         <p class="message <?php echo (strpos($message, 'Error') !== false || strpos($message, 'not available') !== false) ? 'error' : 'success'; ?>">

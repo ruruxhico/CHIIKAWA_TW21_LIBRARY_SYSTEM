@@ -46,193 +46,14 @@ $result = $stmt->get_result();
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* ... (Your existing CSS styles, including the new ones for .container, .borrowed-details, .btn-return, .btn-returned) ... */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-
-        .logout-top {
-            display: flex;
-            justify-content: flex-end;
-            padding: 16px;
-        }
-
-        .logout-top a {
-            background: #e53935;
-            color: white;
-            padding: 10px 16px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: background 0.2s ease;
-        }
-
-        .logout-top a:hover {
-            background: #c62828;
-        }
-
-        .container { /* Added for consistent container styling */
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 25px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .dashboard-box { /* Keeping this for the main dashboard content */
-             /* no specific styles here if container does the job */
-        }
-
-        h2, h3 {
-            text-align: center;
-            color: #1a4c96;
-            margin-bottom: 20px;
-        }
-
-        .button-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 14px;
-            margin-bottom: 30px;
-        }
-
-        .dash-button {
-            background: #1a73e8;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s ease;
-            min-width: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .dash-button:hover {
-            background: #155db2;
-        }
-
-        .borrowed-card {
-            display: flex; /* Added flex for better layout */
-            align-items: center; /* Center items vertically */
-            justify-content: space-between; /* Space between details and button */
-            background: #f9f9f9;
-            border-left: 5px solid #1a73e8;
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            text-align: left;
-            border-radius: 6px;
-        }
-        /* Style for returned cards */
-        .borrowed-card.returned {
-            opacity: 0.7; /* Slightly dim returned cards */
-            border-left: 5px solid #6c757d; /* Grey border */
-        }
-
-
-        .borrowed-details { /* New wrapper for text details */
-            flex-grow: 1; /* Allows details to take available space */
-        }
-
-        .borrowed-title {
-            font-weight: bold;
-            color: #1a4c96;
-            font-size: 18px; /* Added font size for clarity */
-        }
-
-        .meta {
-            font-size: 14px;
-            margin-top: 5px;
-            color: #333;
-        }
-
-        .fine {
-            color: red;
-            font-weight: bold;
-        }
-
-        /* New style for admin-specific button, if desired */
-        .admin-button {
-            background-color: #f7931e; /* Orange color for admin actions */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .admin-button:hover {
-            background-color: #d17814;
-        }
-
-        /* Styles for Return button */
-        .btn-return {
-            background-color: #28a745; /* Green for return */
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s ease;
-            white-space: nowrap; /* Keep text on one line */
-        }
-        .btn-return:hover {
-            background-color: #218838;
-        }
-        .btn-returned { /* Style for when book is already returned */
-            background-color: #6c757d; /* Grey */
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: not-allowed;
-            opacity: 0.8;
-            white-space: nowrap;
-        }
-
-        /* Message styling */
-        .message {
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-    </style>
-    <script>
-        function confirmReturn(bookTitle) {
-            return confirm("Are you sure you want to return '" + bookTitle + "'?");
-        }
-    </script>
+    <link rel="stylesheet" href="script.js">
 </head>
 <body>
     <div class="logout-top">
         <a href="logout.php">Logout</a>
     </div>
 
-    <div class="container dashboard-box">
+    <div class="container-dashboard-box">
         <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
 
         <div class="button-grid">
@@ -306,7 +127,7 @@ $result = $stmt->get_result();
                     </div>
                     <div class="borrowed-actions">
                         <?php if (!$is_returned): ?>
-                            <form action="" method="POST" style="display:inline-block;"
+                            <form action="" method="POST" class="inline-form"
                                   onsubmit="return confirmReturn('<?php echo htmlspecialchars($row['title']); ?>');">
                                 <input type="hidden" name="borrow_id" value="<?php echo htmlspecialchars($row['borrow_id']); ?>">
                                 <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($row['book_id']); ?>">
